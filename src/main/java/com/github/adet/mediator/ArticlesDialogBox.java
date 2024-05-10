@@ -1,10 +1,15 @@
 package com.github.adet.mediator;
 
-public class ArticlesDialogBox extends DialogBox {
+public class ArticlesDialogBox {
 
-    private ListBox articlesListBox = new ListBox(this);
-    private TextBox titleTextBox = new TextBox(this);
-    private Button saveButton = new Button(this);
+    private ListBox articlesListBox = new ListBox();
+    private TextBox titleTextBox = new TextBox();
+    private Button saveButton = new Button();
+
+    public ArticlesDialogBox() {
+        articlesListBox.addEventHandler(this::articleSelected);
+        titleTextBox.addEventHandler(this::titleChanged);
+    }
 
     public void simulateUserInteraction() {
         articlesListBox.setSelection("Article 1");
@@ -12,15 +17,6 @@ public class ArticlesDialogBox extends DialogBox {
         titleTextBox.setContent("Article 2");
         System.out.println("TextBox: " + titleTextBox.getContent());
         System.out.println("Button: " + saveButton.isEnabled());
-    }
-
-    @Override
-    protected void changed(UIControl control) {
-        if (control == articlesListBox) {
-            articleSelected();
-        } else if (control == titleTextBox) {
-            titleChanged();
-        }
     }
 
     private void titleChanged() {

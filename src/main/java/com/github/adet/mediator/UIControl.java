@@ -1,10 +1,19 @@
 package com.github.adet.mediator;
 
-public class UIControl {
+import java.util.ArrayList;
+import java.util.List;
 
-    protected DialogBox owner;
+public abstract class UIControl {
 
-    public UIControl(DialogBox owner) {
-        this.owner = owner;
+    private List<EventHandler> events = new ArrayList<>();
+
+    public void addEventHandler(EventHandler eventHandler) {
+        events.add(eventHandler);
+    }
+
+    protected void notifyEventHandlers() {
+        for (EventHandler event : events) {
+            event.handle();
+        }
     }
 }
